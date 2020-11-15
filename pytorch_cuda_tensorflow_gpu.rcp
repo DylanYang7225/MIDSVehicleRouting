@@ -1,0 +1,50 @@
+Bootstrap: docker
+From: nvcr.io/nvidia/pytorch:20.03-py3
+
+%labels
+    Maintainer Hang(Dylan) Yang
+    Image_Name Machine_Learning
+    Image_Version Machine_Learning_01
+
+%post
+  export DEBIAN_FRONTEND=noninteractive
+  apt-get update
+  apt-get install -y --no-install-recommends \
+      wget \
+      curl \
+      less \
+      git  \
+      ssh  \
+      htop  \
+      python3-dev \
+      python-pip \
+      python3-pip \
+      python-setuptools \
+      python3-setuptools
+  apt-get clean
+
+  #------------------------------------------
+  python3 -m pip install jupyterlab
+  python3 -m pip install notebook
+  python3 -m pip install wheel
+  python3 -m pip install bash_kernel
+  python3 -m bash_kernel.install
+  #------------------------------------------
+  python3 -m pip install --upgrade pip
+  python3 -m pip install --upgrade tensorflow --no-cache-dir
+  python3 -m pip install --upgrade tensorflow-gpu --no-cache-dir
+  python3 -m pip install scikit-learn
+  python3 -m pip install statsmodels
+  python3 -m pip install matplotlib
+  
+  python3 -m pip install tqdm
+  python3 -m pip install cupy-cuda91
+  python3 -m pip install tensorboard_logger
+  python3 -m pip install pandas
+  python3 -m pip install seaborn
+ 
+  #------------------------------------------
+  mkdir /data
+  mkdir /output
+  mkdir /scratch
+  mkdir /work
