@@ -1,0 +1,52 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:latest-jupyter
+
+%labels
+    Maintainer Hang(Dylan) Yang
+    Image_Name Vehicle_Routing_Problem
+    Image_Version VRP_01
+
+%post
+  export DEBIAN_FRONTEND=noninteractive
+  apt-get update
+  apt-get install -y --no-install-recommends \
+      wget \
+      curl \
+      less \
+      git  \
+      ssh  \
+      htop  \
+      python3-dev \
+      python-pip \
+      python3-pip \
+      python-setuptools \
+      python3-setuptools
+  apt-get clean
+
+  #------------------------------------------
+  python3 -m pip install --upgrade pip
+  python3 -m pip install wheel
+  python3 -m pip install bash_kernel
+  python3 -m bash_kernel.install
+  #------------------------------------------
+  python3 -m pip install --upgrade tensorflow
+  python3 -m pip install --upgrade tensorflow-gpu
+  python3 -m pip install keras
+  python3 -m pip install scikit-learn
+  python3 -m pip install statsmodels
+  python3 -m pip install matplotlib
+  python3 -m pip install pandas
+  python3 -m pip install seaborn
+  python3 -m pip install plotly
+  python3 -m pip install torch
+  python3 -m pip install torchvision
+  python3 -m pip install tensorboard_logger
+  python3 -m pip install meta
+  python3 -m pip install nets
+  python3 -m pip install tqdm
+  python3 -m pip install ortools
+  #------------------------------------------
+  mkdir /data
+  mkdir /output
+  mkdir /scratch
+  mkdir /work
